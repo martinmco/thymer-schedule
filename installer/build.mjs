@@ -1,0 +1,20 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+const dir = dirname(fileURLToPath(import.meta.url));
+const view = readFileSync(join(dir, '..', 'dist', 'plugin.min.js'), 'utf8');
+const unminifiedView = readFileSync(join(dir, '..', 'dist', 'plugin.js'), 'utf8');
+const source = readFileSync(join(dir, 'plugin.js'), 'utf8');
+if (!source.includes('__VIEW_SOURCE__') || !source.includes('__LEGACY_VIEW_HASHES__') || !view.includes('CollectionPlugin')) throw new Error('Missing source or invalid Schedule bundle');
+const unminifiedHash = createHash('sha256').update(unminifiedView).digest('hex');
+const priorHash = '4c8fddd4518e90089f4fe68c2f5746a7702eb54618e699e6031d11235605c8b3';
+const layoutHash = '1b5d5f756a99b4fb8c33df5b912607fac9616fab26a78dca6f244649321b8e38';
+const interactionHash = '4736159b3ffa60c6bc27f5e1afdb64b23d7e41e1d7d5288bf1468fafe107d7ab';
+const installedViewHash = 'e02c15b1676090747ccd7971fa56feb47636d2e659050885d5b52d3d636b828c';
+const installedMinifiedHash = '4ae74a1d911c34fc4b892cc81def0c18d500a82232e7e241457e9e88b04f0fdf';
+// Function replacements preserve literal `$&` and other replacement tokens inside FullCalendar.
+const output = source.replace('__VIEW_SOURCE__', () => JSON.stringify(view)).replace('__LEGACY_VIEW_HASHES__', () => JSON.stringify([...new Set([priorHash, layoutHash, interactionHash, installedViewHash, installedMinifiedHash, unminifiedHash])]));
+mkdirSync(join(dir, 'dist'), { recursive: true });
+writeFileSync(join(dir, 'dist', 'plugin.js'), output);
+console.log(`Built ${output.length} byte global installer`);

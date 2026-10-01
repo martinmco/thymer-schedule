@@ -1,0 +1,22 @@
+{
+  "name": "thymer-schedule",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs && node installer/build.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@fullcalendar/core": "6.1.19",
+    "@fullcalendar/daygrid": "6.1.19",
+    "@fullcalendar/timegrid": "6.1.19",
+    "@fullcalendar/interaction": "6.1.19"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.6"
+  },
+  "overrides": {
+    "@fullcalendar/daygrid": "6.1.19"
+  }
+}

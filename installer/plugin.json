@@ -1,0 +1,18 @@
+{
+  "ver": 1,
+  "name": "Schedule (add when needed)",
+  "icon": "ti-calendar",
+  "off": false,
+  "item_name": "Note",
+  "description": "Add Schedule to selected Collections",
+  "show_sidebar_items": true,
+  "show_cmdpal_items": true,
+  "views": [],
+  "fields": [],
+  "page_field_ids": [],
+  "sidebar_record_sort_field_id": "updated_at",
+  "sidebar_record_sort_dir": "desc",
+  "managed": { "fields": false, "views": false, "sidebar": false },
+  "custom": {},
+  "home": false
+}
