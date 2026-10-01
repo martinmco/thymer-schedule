@@ -13,8 +13,10 @@ const layoutHash = '1b5d5f756a99b4fb8c33df5b912607fac9616fab26a78dca6f244649321b
 const interactionHash = '4736159b3ffa60c6bc27f5e1afdb64b23d7e41e1d7d5288bf1468fafe107d7ab';
 const installedViewHash = 'e02c15b1676090747ccd7971fa56feb47636d2e659050885d5b52d3d636b828c';
 const installedMinifiedHash = '4ae74a1d911c34fc4b892cc81def0c18d500a82232e7e241457e9e88b04f0fdf';
+const releasedV01ViewHash = '517d84a3bf69b141c4e6bb989d675b1bba315d266d1480a99ff5c3b82ae50876';
+const releasedV01MinifiedHash = 'e937039c995bcd9e7282d6f00387616a755432e6b1ca1c55ca7102b86f4dd318';
 // Function replacements preserve literal `$&` and other replacement tokens inside FullCalendar.
-const output = source.replace('__VIEW_SOURCE__', () => JSON.stringify(view)).replace('__LEGACY_VIEW_HASHES__', () => JSON.stringify([...new Set([priorHash, layoutHash, interactionHash, installedViewHash, installedMinifiedHash, unminifiedHash])]));
+const output = source.replace('__VIEW_SOURCE__', () => JSON.stringify(view)).replace('__LEGACY_VIEW_HASHES__', () => JSON.stringify([...new Set([priorHash, layoutHash, interactionHash, installedViewHash, installedMinifiedHash, releasedV01ViewHash, releasedV01MinifiedHash, unminifiedHash])]));
 mkdirSync(join(dir, 'dist'), { recursive: true });
 writeFileSync(join(dir, 'dist', 'plugin.js'), output);
 console.log(`Built ${output.length} byte global installer`);

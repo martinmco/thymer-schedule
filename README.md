@@ -13,13 +13,13 @@ Schedule is a calendar view for Thymer Collections. It shows Records with Start 
 | Views | Show Day, a Monday–Sunday Week, or a custom span of 1–14 days. The custom span starts at three days. |
 | Event editing | Create, move, and resize timed Records in 15-minute increments. Schedule saves their Start and End dates. |
 | View settings | Set visible hours and the custom day count from the Schedule gear; right-click the day-span button to change its count. Hours start at 9am–6pm, and the grid fills the available height when possible. |
-| Date cues | Accent today and shade Saturday and Sunday. |
+| Date cues | Accent today and shade Saturday and Sunday, using Thymer's current theme colors in light and dark mode. |
 | Persistence | Keep the hours and day count with the Collection view; remember the selected mode and date on each device. |
 
 ## Add Schedule
 
 1. In Thymer, create a new **global plugin** named “Schedule (add when needed)”.
-2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into **Custom Code** and [installer/plugin.json](installer/plugin.json) into **Configuration**, then save both. The [v0.1.0 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) also provides the files as download assets.
+2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into **Custom Code** and [installer/plugin.json](installer/plugin.json) into **Configuration**, then save both. The [v0.1.1 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.1) also provides the files as download assets.
 3. Open the Collection that needs a calendar and run **Schedule: add to current Collection** from Thymer's command palette.
 
 This adds Start and End fields and a Schedule view to that Collection. Other Collections are unaffected.
@@ -28,7 +28,7 @@ This adds Start and End fields and a Schedule view to that Collection. Other Col
 
 Thymer currently provides one Collection plugin code slot. If a Collection contains unrelated custom plugin code, the installer stops and reports **merge required**. It does not install Schedule automatically in future Collections. Journal is skipped. Updating code in an existing Schedule Collection is manual in v0.1; back up its code and configuration first. All-day and recurring events are outside v0.1 scope.
 
-**Known issue:** Event text has insufficient contrast in Thymer's light theme in v0.1. Use a dark theme until this is fixed.
+Version 0.1.1 fixes the light-theme contrast issue in v0.1.0. If you installed the earlier view, back up its Collection code and configuration before replacing the view bundle; the global installer does not update existing Collections automatically.
 
 ## For developers
 

@@ -262,11 +262,12 @@ export class Plugin extends CollectionPlugin {
             .thymer-day-week.is-day .fc-toolbar-title { white-space: nowrap; }
             .thymer-day-week.fc {
               color: var(--text-default); font-family: inherit;
-              --fc-page-bg-color: var(--bg-default);
-              --fc-neutral-bg-color: var(--bg-default);
-              --fc-border-color: rgba(255,255,255,.07);
-              --fc-today-bg-color: rgba(164, 106, 255, .055);
-              --fc-event-bg-color: #34383e;
+              --fc-page-bg-color: var(--panel-bg-color);
+              --fc-neutral-bg-color: var(--panel-bg-color);
+              --fc-border-color: var(--thin-divider-color);
+              --fc-now-indicator-color: var(--color-primary-700);
+              --fc-today-bg-color: color-mix(in srgb, var(--color-primary-400) 9%, transparent);
+              --fc-event-bg-color: color-mix(in srgb, var(--panel-bg-color) 78%, var(--text-default) 22%);
               --fc-event-border-color: transparent;
               --fc-event-text-color: var(--text-default);
             }
@@ -283,29 +284,29 @@ export class Plugin extends CollectionPlugin {
             .thymer-day-week.fc .fc-button-group { gap: 2px; }
             .thymer-day-week.fc .fc-button-group > .fc-button { border-radius: 6px; }
             .thymer-day-week.fc .fc-settings-button, .thymer-day-week.fc .fc-timeGridSpan-button { position: relative; }
-            .thymer-day-week-hours-popover { position: absolute; top: 100%; right: 0; z-index: 20; width: 310px; padding: 14px; border: 1px solid var(--fc-border-color); border-radius: 8px; background: #202125; box-shadow: 0 8px 24px rgba(0,0,0,.35); color: var(--text-default); font-size: 13px; text-align: left; }
+            .thymer-day-week-hours-popover { position: absolute; top: 100%; right: 0; z-index: 20; width: 310px; padding: 14px; border: 1px solid var(--fc-border-color); border-radius: 8px; background: var(--panel-bg-color); box-shadow: var(--shadow-medium); color: var(--text-default); font-size: 13px; text-align: left; }
             .thymer-day-week-hours-row { display: flex; gap: 10px; margin: 12px 0 6px; }
             .thymer-day-week-hours-row label { display: grid; gap: 5px; flex: 1; color: var(--text-muted); }
-            .thymer-day-week-hours-row select { width: 100%; padding: 6px; border: 1px solid var(--fc-border-color); border-radius: 5px; background: #292b30; color: var(--text-default); font: inherit; }
-            .thymer-day-week-hours-error { min-height: 16px; color: #e47777; font-size: 12px; }
+            .thymer-day-week-hours-row select { width: 100%; padding: 6px; border: 1px solid var(--fc-border-color); border-radius: 5px; background: var(--input-bg-color); color: var(--text-default); font: inherit; }
+            .thymer-day-week-hours-error { min-height: 16px; color: var(--text-error); font-size: 12px; }
             .thymer-day-week-hours-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 5px; }
-            .thymer-day-week-hours-actions button { padding: 5px 9px; border: 1px solid var(--fc-border-color); border-radius: 5px; background: #34383e; color: var(--text-default); font: inherit; cursor: pointer; }
+            .thymer-day-week-hours-actions button { padding: 5px 9px; border: 1px solid var(--fc-border-color); border-radius: 5px; background: var(--button-bg-color); color: var(--text-default); font: inherit; cursor: pointer; }
             .thymer-day-week .fc-col-header-cell,
-              .thymer-day-week .fc-scrollgrid-section-header th { background: var(--bg-default) !important; color: var(--text-default) !important; text-align: left; }
+              .thymer-day-week .fc-scrollgrid-section-header th { background: var(--panel-bg-color) !important; color: var(--text-default) !important; text-align: left; }
             .thymer-day-week .fc-col-header-cell-cushion { display: block; width: 100%; color: var(--text-muted) !important; font-weight: 500; font-size: 13px; padding: 8px 4px; }
             .thymer-day-week .thymer-day-header { display: flex; align-items: center; justify-content: flex-start; gap: 6px; min-height: 35px; padding-left: 8px; }
-            .thymer-day-week .thymer-day-number { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #25262a; color: #e9e9eb; font-size: 13px; font-weight: 600; }
-            .thymer-day-week .thymer-day-header.today .thymer-day-number { background: #30204f; color: #a46aff; }
-            .thymer-day-week .thymer-day-name { color: #a2a1aa; font-size: 11px; font-weight: 500; }
-            .thymer-day-week.fc .fc-timegrid-col.thymer-weekend { background: rgba(255,255,255,.025); }
-            .thymer-day-week.fc .fc-timegrid-col.fc-day-today { background: rgba(164,106,255,.055); }
+            .thymer-day-week .thymer-day-number { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: color-mix(in srgb, var(--panel-bg-color) 90%, var(--text-default) 10%); color: var(--text-default); font-size: 13px; font-weight: 600; }
+            .thymer-day-week .thymer-day-header.today .thymer-day-number { background: var(--selection-bg); color: var(--text-hilite); }
+            .thymer-day-week .thymer-day-name { color: var(--text-subtle); font-size: 11px; font-weight: 500; }
+            .thymer-day-week.fc .fc-timegrid-col.thymer-weekend { background: color-mix(in srgb, var(--text-default) 3%, transparent); }
+            .thymer-day-week.fc .fc-timegrid-col.fc-day-today { background: var(--fc-today-bg-color); }
             .thymer-day-week.fc .fc-timegrid-slot-label-cushion { color: var(--text-muted); font-size: 12px; }
             .thymer-day-week.fc .fc-timegrid-slot { height: 28px; }
             .thymer-day-week.fc .fc-timegrid-event { border-radius: 5px; padding: 2px 4px; }
             .thymer-day-week.fc .fc-timegrid-event .fc-event-resizer-end { height: 14px; bottom: -4px; z-index: 5; cursor: s-resize; }
             .thymer-day-week.fc .fc-timegrid-event:hover .fc-event-resizer-end::after { content: ''; position: absolute; left: calc(50% - 14px); bottom: 5px; width: 28px; height: 3px; border-radius: 3px; background: var(--text-muted); opacity: .8; }
             .thymer-day-week.fc-theme-standard td, .thymer-day-week.fc-theme-standard th,
-            .thymer-day-week.fc-theme-standard .fc-scrollgrid { border-color: rgba(255,255,255,.07); }
+            .thymer-day-week.fc-theme-standard .fc-scrollgrid { border-color: var(--thin-divider-color); }
           `);
           this._scheduleCssInjected = true;
           calendar = new Calendar(root, {
