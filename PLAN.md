@@ -1,30 +1,30 @@
-# Thymer Schedule
+# Thymer Schedule plan
 
 ## Where we are
 
 | Workstream | State | Immediate next outcome |
 | --- | --- | --- |
-| ✅ v0.1 hardening | Scoped popover cleanup, settings readback, partial date-write handling, and installer verification are built; four focused tests pass | Preserve the verified bundle |
-| ✅ Public package | Public repository, source, installer, docs, license, and third-party notice are assembled for v0.1.0 | Maintain from tagged release |
-| ✅ Live update | Seven Collection plugins and the global installer were backed up, updated, and read back with unchanged configuration | Validate fresh runtime interaction when a UI session is available |
+| ✅ v0.1.0 release | The opt-in installer and Collection view are published with source and pasteable bundles | Maintain compatibility with the released configuration |
+| ✅ Reproducible builds | Locked FullCalendar dependencies, bundled license notices, tests, and CI checks cover the committed bundles | Keep generated files in sync with source |
+| 🟡 Existing installation updates | The installer recognizes earlier Schedule code but does not replace it automatically | Design an explicit, reversible update flow |
+| ⬜ UI regression coverage | Installer behavior has automated tests; calendar interactions rely on manual checks | Add repeatable checks for view switching, settings, creation, drag, and resize |
 
 ## Current work
 
-Version 0.1.0 is the first public package of the opt-in FullCalendar Schedule plugin. The Collection view and global installer are separate pasteable bundles. Existing Collection configuration and recognized older code are preserved without silently overwriting unrelated plugins.
+Keep the v0.1 release installable and review bug reports against the current Thymer SDK. Changes to Collection code must preserve a Collection's existing view options and date-field mapping.
 
 ## Remaining work — single backlog
 
-No remaining work for the v0.1.0 package. A future release may add an explicit update workflow for existing Collection code and more live UI regression coverage.
+1. Design an opt-in update action for existing Schedule installations, with a configuration backup, a code ownership check, and readback after saving.
+2. Add repeatable UI checks for Day, Week, custom days, Calendar → Schedule navigation, settings persistence, and event edits.
 
-## Release decisions
+## Decisions
 
-- Public GitHub repository: `martinmco/thymer-schedule`.
-- MIT license; include FullCalendar MIT notice in source distribution and bundled view code.
-- Global plugin installs Schedule only after an explicit Collection selection.
-- Unknown Collection custom code remains a merge-required case.
+- Schedule is a Collection custom view. A global plugin offers commands to install it in selected Collections.
+- Installation leaves unrelated Collection plugin code alone and reports a merge requirement.
+- View settings live in the Collection view's `opts`; selected mode and date are local to each device.
+- Pasteable bundles are committed for installation without a local build. CI rebuilds them and checks for drift.
 
-## Verification
+## Release history
 
-- `npm ci`, `npm run build`, and four focused installer tests passed. Generated bundles include this project's MIT license and FullCalendar's MIT notice.
-- The release audit found no workspace IDs, credentials, private Collection names, or local paths in tracked files.
-- The seven existing Collection plugins and the global installer were backed up, updated to the v0.1.0 bundles, and read back through Thymer MCP. Each retained its exact configuration. Current v0.1.0 UI interaction has not been retested on screen.
+- [v0.1.0](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0): first public release with Day, Week, configurable day span and hours, editable timed events, and an opt-in installer.
