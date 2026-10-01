@@ -1,16 +1,33 @@
 # Thymer Schedule
 
-An opt-in timed calendar view for ordinary [Thymer](https://thymer.com) Collections, powered by [FullCalendar](https://fullcalendar.io). [Latest release: v0.1.0](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0).
+**Plan time alongside the notes and records already in Thymer.** Schedule adds an opt-in calendar view to an ordinary [Thymer](https://thymer.com) Collection, so you can see and edit timed events without moving them into another app.
 
-Schedule has a configurable 1–14 day view, Week, and Day. Its gear sets the number of days and the visible hour range per Collection; right-click the day-span button for the same settings. The default range is 09:00–18:00 and the default span is three days. Week starts Monday. Saturday and Sunday are shaded, today is accented, and event creation, dragging, and resizing snap to 15 minutes. Day uses a centered 640px calendar; Week and custom days fill the available Collection width. The hour grid grows to fill the available height when possible and scrolls for long ranges or short windows.
+![Thymer Schedule showing a three-day calendar with sample events on Thursday, Friday, and Saturday](media/schedule-demo.jpg)
 
-Schedule stores visible hours and day count in the Collection view's `opts`. It remembers the selected mode and date in browser-local storage on that device. Events come from editable, single-value Start and End date/time fields; a Record without Start is not shown.
+[What it does](#what-it-does) · [Quick start](#quick-start) · [Settings](#settings-and-behavior) · [Compatibility](#compatibility-and-limits) · [For developers](#for-developers)
 
-## Install
+## What it does
+
+- **Choose the view that fits the work.** Switch between Day, Week, and a custom span of 1–14 days. The custom span starts at three days; Week starts Monday.
+- **See the useful hours.** Set the visible time range for each Collection. It starts at 9am–6pm and stretches to the available screen height when possible. Today is accented and weekends are shaded.
+- **Plan directly on the calendar.** Create, move, and resize timed events in 15-minute steps. Each event is a real Thymer Record with editable Start and End fields.
+- **Add it only where you want it.** A global installer adds Schedule to a selected eligible Collection when you run its command. Other Collections stay as they are.
+
+Schedule uses [FullCalendar](https://fullcalendar.io) inside Thymer's custom Collection view. [v0.1.0](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) is the first public release.
+
+## Quick start
 
 1. In Thymer, create a **new global plugin** named “Schedule (add when needed)” and save the plugin container.
 2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into its Custom Code field and [installer/plugin.json](installer/plugin.json) into Configuration, then save both. The [v0.1.0 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) provides these as separately named download assets.
 3. Open a Collection and run **Schedule: add to current Collection** from Thymer's command palette. **Schedule: choose a Collection…** opens a picker with availability and skip reasons.
+
+## Settings and behavior
+
+Use the gear in Schedule to set the visible hours and custom day count for that Collection. Right-click the day-span button to change the count there too. Schedule saves these settings in the Collection view. It remembers the selected Day, Week, or custom mode and the viewed date locally on each device.
+
+Day uses a centered 640px calendar. Week and custom days use the available Collection width. The time grid grows to fit the window when possible and scrolls when the range or window height needs it. Records without a Start date are not shown in the calendar.
+
+## Compatibility and limits
 
 The global plugin changes no Collection until you choose one. On a fresh eligible Collection it adds editable Start and End fields, a Schedule view, and the Collection plugin code. It reads back the code, view, mapping, and fields after saving. Running the command again is a no-op. If the Schedule view was removed but recognized Schedule code remains, the command restores the view without replacing the code.
 
@@ -18,7 +35,7 @@ Thymer has one Collection plugin code slot. If a Collection already has unrelate
 
 **Existing installations:** The v0.1 installer recognizes the bundled view code and known earlier Schedule bundles. It reports an already-installed view as ready when the code and editable field mapping agree. Updating Schedule code in an existing Collection is a separate, manual operation in v0.1; back up that Collection's code and configuration first. The installer does not silently replace it.
 
-## Develop
+## For developers
 
 ```sh
 npm ci
@@ -42,7 +59,7 @@ After changing source, run `npm run build` and `npm test`, then commit any chang
 
 No workspace IDs, API keys, or external services are needed. The plugin uses Thymer's plugin SDK and FullCalendar packages only. Thymer's plugin APIs can change; exact signatures were checked against the [official SDK](https://github.com/thymerapp/thymer-plugin-sdk/blob/6f25f1470ff1/types.d.ts) for this release.
 
-## Configuration and limits
+## Configuration reference
 
 The Collection view uses a custom view with ID `VTHYMERDAYWEEK` and label `Schedule`. A fresh installation saves:
 

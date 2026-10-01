@@ -6,12 +6,15 @@
 | --- | --- | --- |
 | ✅ v0.1.0 release | The opt-in installer and Collection view are published with source and pasteable bundles | Maintain compatibility with the released configuration |
 | ✅ Reproducible builds | Locked FullCalendar dependencies, bundled license notices, tests, and CI checks cover the committed bundles | Keep generated files in sync with source |
+| ✅ Public README | The repository opens with a product explanation, sample screenshot, feature overview, and quick links | Keep the screenshot and setup steps in sync with future releases |
 | 🟡 Existing installation updates | The installer recognizes earlier Schedule code but does not replace it automatically | Design an explicit, reversible update flow |
 | ⬜ UI regression coverage | Installer behavior has automated tests; calendar interactions rely on manual checks | Add repeatable checks for view switching, settings, creation, drag, and resize |
 
 ## Current work
 
 Keep the v0.1 release installable and review bug reports against the current Thymer SDK. Changes to Collection code must preserve a Collection's existing view options and date-field mapping.
+
+The public README is organized for first-time visitors; product behavior and setup details remain tied to the v0.1 release.
 
 ## Remaining work — single backlog
 
