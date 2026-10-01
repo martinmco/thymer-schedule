@@ -1,39 +1,34 @@
 # Thymer Schedule
 
-**Plan time alongside the notes and records already in Thymer.** Schedule adds an opt-in calendar view to an ordinary [Thymer](https://thymer.com) Collection, so you can see and edit timed events without moving them into another app.
+Schedule is a calendar view for Thymer Collections. It shows Records with Start and End dates on a time grid, where you can create events and change their times.
 
-![Thymer Schedule showing a three-day calendar with sample events on Thursday, Friday, and Saturday](media/schedule-demo.jpg)
+![A three-day Schedule view for the fictional Cedar app launch, with specific launch tasks](media/schedule-cedar-light-grey.jpg)
 
-[What it does](#what-it-does) · [Quick start](#quick-start) · [Settings](#settings-and-behavior) · [Compatibility](#compatibility-and-limits) · [For developers](#for-developers)
+**I want to…** [see the functions](#functions) · [add it to a Collection](#add-schedule) · [check compatibility](#compatibility) · [inspect the code](#for-developers)
 
-## What it does
+## Functions
 
-- **Choose the view that fits the work.** Switch between Day, Week, and a custom span of 1–14 days. The custom span starts at three days; Week starts Monday.
-- **See the useful hours.** Set the visible time range for each Collection. It starts at 9am–6pm and stretches to the available screen height when possible. Today is accented and weekends are shaded.
-- **Plan directly on the calendar.** Create, move, and resize timed events in 15-minute steps. Each event is a real Thymer Record with editable Start and End fields.
-- **Add it only where you want it.** A global installer adds Schedule to a selected eligible Collection when you run its command. Other Collections stay as they are.
+| Function | What it does |
+| --- | --- |
+| Views | Show Day, a Monday–Sunday Week, or a custom span of 1–14 days. The custom span starts at three days. |
+| Event editing | Create, move, and resize timed Records in 15-minute increments. Schedule saves their Start and End dates. |
+| View settings | Set visible hours and the custom day count from the Schedule gear; right-click the day-span button to change its count. Hours start at 9am–6pm, and the grid fills the available height when possible. |
+| Date cues | Accent today and shade Saturday and Sunday. |
+| Persistence | Keep the hours and day count with the Collection view; remember the selected mode and date on each device. |
 
-Schedule uses [FullCalendar](https://fullcalendar.io) inside Thymer's custom Collection view. [v0.1.0](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) is the first public release.
+## Add Schedule
 
-## Quick start
+1. In Thymer, create a new **global plugin** named “Schedule (add when needed)”.
+2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into **Custom Code** and [installer/plugin.json](installer/plugin.json) into **Configuration**, then save both. The [v0.1.0 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) also provides the files as download assets.
+3. Open the Collection that needs a calendar and run **Schedule: add to current Collection** from Thymer's command palette.
 
-1. In Thymer, create a **new global plugin** named “Schedule (add when needed)” and save the plugin container.
-2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into its Custom Code field and [installer/plugin.json](installer/plugin.json) into Configuration, then save both. The [v0.1.0 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.0) provides these as separately named download assets.
-3. Open a Collection and run **Schedule: add to current Collection** from Thymer's command palette. **Schedule: choose a Collection…** opens a picker with availability and skip reasons.
+This adds Start and End fields and a Schedule view to that Collection. Other Collections are unaffected.
 
-## Settings and behavior
+## Compatibility
 
-Use the gear in Schedule to set the visible hours and custom day count for that Collection. Right-click the day-span button to change the count there too. Schedule saves these settings in the Collection view. It remembers the selected Day, Week, or custom mode and the viewed date locally on each device.
+Thymer currently provides one Collection plugin code slot. If a Collection contains unrelated custom plugin code, the installer stops and reports **merge required**. It does not install Schedule automatically in future Collections. Journal is skipped. Updating code in an existing Schedule Collection is manual in v0.1; back up its code and configuration first. All-day and recurring events are outside v0.1 scope.
 
-Day uses a centered 640px calendar. Week and custom days use the available Collection width. The time grid grows to fit the window when possible and scrolls when the range or window height needs it. Records without a Start date are not shown in the calendar.
-
-## Compatibility and limits
-
-The global plugin changes no Collection until you choose one. On a fresh eligible Collection it adds editable Start and End fields, a Schedule view, and the Collection plugin code. It reads back the code, view, mapping, and fields after saving. Running the command again is a no-op. If the Schedule view was removed but recognized Schedule code remains, the command restores the view without replacing the code.
-
-Thymer has one Collection plugin code slot. If a Collection already has unrelated custom code, the installer reports **merge required** and leaves it alone. Journal uses a different core plugin and is skipped. A custom view cannot be registered once globally for every Collection through the current SDK. The installer does not automatically attach Schedule to future Collections; use the command when needed.
-
-**Existing installations:** The v0.1 installer recognizes the bundled view code and known earlier Schedule bundles. It reports an already-installed view as ready when the code and editable field mapping agree. Updating Schedule code in an existing Collection is a separate, manual operation in v0.1; back up that Collection's code and configuration first. The installer does not silently replace it.
+**Known issue:** Event text has insufficient contrast in Thymer's light theme in v0.1. Use a dark theme until this is fixed.
 
 ## For developers
 
