@@ -8,11 +8,21 @@ import { dirname, join } from 'node:path';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const installerCode = readFileSync(join(root, 'installer', 'dist', 'plugin.js'), 'utf8');
-const viewCode = readFileSync(join(root, 'dist', 'plugin.min.js'), 'utf8');
+const viewCode = readFileSync(join(root, 'dist', 'view.min.js'), 'utf8');
 const context = { AppPlugin: class {}, crypto: webcrypto, TextEncoder };
 runInNewContext(`${installerCode}\nglobalThis.ScheduleInstaller = Plugin;`, context);
 const Plugin = context.ScheduleInstaller;
 const emptyCode = 'class Plugin extends CollectionPlugin {\n  onLoad() {\n    // Put your custom code here...\n  }\n}';
+
+test('repository root installs the global plugin through Plugin Manager', () => {
+  const rootConfig = JSON.parse(readFileSync(join(root, 'plugin.json'), 'utf8'));
+  const subfolderConfig = JSON.parse(readFileSync(join(root, 'installer', 'plugin.json'), 'utf8'));
+  const rootBundle = readFileSync(join(root, 'dist', 'plugin.js'), 'utf8');
+  assert.deepEqual(rootConfig, subfolderConfig);
+  assert.equal(rootConfig.type, 'app');
+  assert.match(rootBundle, /class Plugin extends AppPlugin/);
+  assert.equal(rootBundle, installerCode);
+});
 
 function harness(code = emptyCode, config = { fields: [{ id: 'title', type: 'text' }], views: [{ id: 'LIST', type: 'list', label: 'List' }] }) {
   let savedCode = code;

@@ -18,9 +18,10 @@ Schedule is a calendar view for Thymer Collections. It shows Records with Start 
 
 ## Add Schedule
 
-1. In Thymer, create a new **global plugin** named “Schedule (add when needed)”.
-2. Paste [installer/dist/plugin.js](installer/dist/plugin.js) into **Custom Code** and [installer/plugin.json](installer/plugin.json) into **Configuration**, then save both. The [v0.1.1 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.1) also provides the files as download assets.
-3. Open the Collection that needs a calendar and run **Schedule: add to current Collection** from Thymer's command palette.
+1. In Thymer's Plugin Manager, open the **Plugins** tab, choose **Install Plugin**, and enter `https://github.com/martinmco/thymer-schedule`. Install it as a global Plugin. If you previously tried **Install Collection Plugin**, install from the Plugins tab instead; do not use **Install anyway** on a type warning.
+2. Run **Schedule: choose a Collection…** from Thymer's command palette, then choose where to add Schedule. You can also open a Collection and run **Schedule: add to current Collection**.
+
+For manual installation, create a new **global plugin** named “Schedule (add when needed)”. Paste [dist/plugin.js](dist/plugin.js) into **Custom Code** and [plugin.json](plugin.json) into **Configuration**, then save both. The [v0.1.2 release](https://github.com/martinmco/thymer-schedule/releases/tag/v0.1.2) has the same files as download assets.
 
 This adds Start and End fields and a Schedule view to that Collection. Other Collections are unaffected.
 
@@ -28,7 +29,7 @@ This adds Start and End fields and a Schedule view to that Collection. Other Col
 
 Thymer currently provides one Collection plugin code slot. If a Collection contains unrelated custom plugin code, the installer stops and reports **merge required**. It does not install Schedule automatically in future Collections. Journal is skipped. Updating code in an existing Schedule Collection is manual in v0.1; back up its code and configuration first. All-day and recurring events are outside v0.1 scope.
 
-Version 0.1.1 fixes the light-theme contrast issue in v0.1.0. If you installed the earlier view, back up its Collection code and configuration before replacing the view bundle; the global installer does not update existing Collections automatically.
+Version 0.1.1 fixed the light-theme contrast issue in v0.1.0. Version 0.1.2 makes the repository root installable as a global Plugin through Plugin Manager. If you installed an earlier view, back up its Collection code and configuration before replacing the view bundle; the global installer does not update existing Collections automatically.
 
 ## For developers
 
@@ -38,13 +39,14 @@ npm test
 npm run build
 ```
 
-`plugin.js` is the Collection view source. `dist/plugin.js` is its unminified pasteable bundle, and `dist/plugin.min.js` is embedded in the global installer. `installer/plugin.js` is the installer source; `installer/dist/plugin.js` is the pasteable global plugin. Bundles are committed so installation does not require Node.js. Build scripts include this project's MIT license and FullCalendar's MIT notice in the generated view code; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+`view.js` is the Collection view source. `dist/view.js` is its unminified pasteable bundle, and `dist/view.min.js` is embedded in the global installer. `installer/plugin.js` is the installer source; root [dist/plugin.js](dist/plugin.js) and `installer/dist/plugin.js` are identical pasteable global-plugin bundles. Plugin Manager reads the root [plugin.json](plugin.json) and `dist/plugin.js`, so the repository URL installs the global plugin. Bundles are committed so installation does not require Node.js. Build scripts include this project's MIT license and FullCalendar's MIT notice in the generated view code; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 The project layout is:
 
 | Path | Purpose |
 | --- | --- |
-| `plugin.js` | Collection view source |
+| `view.js` | Collection view source |
+| `plugin.json` and `dist/plugin.js` | Plugin Manager entry point for the global installer |
 | `installer/plugin.js` and `installer/plugin.json` | Opt-in global installer source and configuration |
 | `dist/` and `installer/dist/` | Pasteable generated bundles |
 | `test/` | Focused installer tests |

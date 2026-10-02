@@ -3,8 +3,8 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 const dir = dirname(fileURLToPath(import.meta.url));
-const view = readFileSync(join(dir, '..', 'dist', 'plugin.min.js'), 'utf8');
-const unminifiedView = readFileSync(join(dir, '..', 'dist', 'plugin.js'), 'utf8');
+const view = readFileSync(join(dir, '..', 'dist', 'view.min.js'), 'utf8');
+const unminifiedView = readFileSync(join(dir, '..', 'dist', 'view.js'), 'utf8');
 const source = readFileSync(join(dir, 'plugin.js'), 'utf8');
 if (!source.includes('__VIEW_SOURCE__') || !source.includes('__LEGACY_VIEW_HASHES__') || !view.includes('CollectionPlugin')) throw new Error('Missing source or invalid Schedule bundle');
 const unminifiedHash = createHash('sha256').update(unminifiedView).digest('hex');
@@ -15,8 +15,12 @@ const installedViewHash = 'e02c15b1676090747ccd7971fa56feb47636d2e659050885d5b52
 const installedMinifiedHash = '4ae74a1d911c34fc4b892cc81def0c18d500a82232e7e241457e9e88b04f0fdf';
 const releasedV01ViewHash = '517d84a3bf69b141c4e6bb989d675b1bba315d266d1480a99ff5c3b82ae50876';
 const releasedV01MinifiedHash = 'e937039c995bcd9e7282d6f00387616a755432e6b1ca1c55ca7102b86f4dd318';
+const releasedV011ViewHash = '0ddcb1c7b3749d8f6415722221280501b1db76959a9a2a8ee33b5c376d7a8708';
+const releasedV011MinifiedHash = 'f06fe3c6ec48f30e306b6d977542a5787f814028830b99529be09aadc2f9a0f7';
 // Function replacements preserve literal `$&` and other replacement tokens inside FullCalendar.
-const output = source.replace('__VIEW_SOURCE__', () => JSON.stringify(view)).replace('__LEGACY_VIEW_HASHES__', () => JSON.stringify([...new Set([priorHash, layoutHash, interactionHash, installedViewHash, installedMinifiedHash, releasedV01ViewHash, releasedV01MinifiedHash, unminifiedHash])]));
+const output = source.replace('__VIEW_SOURCE__', () => JSON.stringify(view)).replace('__LEGACY_VIEW_HASHES__', () => JSON.stringify([...new Set([priorHash, layoutHash, interactionHash, installedViewHash, installedMinifiedHash, releasedV01ViewHash, releasedV01MinifiedHash, releasedV011ViewHash, releasedV011MinifiedHash, unminifiedHash])]));
 mkdirSync(join(dir, 'dist'), { recursive: true });
 writeFileSync(join(dir, 'dist', 'plugin.js'), output);
+writeFileSync(join(dir, '..', 'dist', 'plugin.js'), output);
+writeFileSync(join(dir, '..', 'plugin.json'), readFileSync(join(dir, 'plugin.json'), 'utf8'));
 console.log(`Built ${output.length} byte global installer`);

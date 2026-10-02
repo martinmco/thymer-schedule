@@ -21,4 +21,4 @@ jobs:
       - run: npm run build
       - run: npm test
       - name: Check committed bundles
-        run: git diff --exit-code -- dist/plugin.js dist/plugin.min.js installer/dist/plugin.js
+        run: git diff --exit-code -- plugin.json dist/plugin.js dist/view.js dist/view.min.js installer/dist/plugin.js

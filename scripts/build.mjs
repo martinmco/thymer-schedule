@@ -9,9 +9,9 @@ const thirdParty = readFileSync(join(root, 'THIRD_PARTY_NOTICES.md'), 'utf8').tr
 const banner = `/*!\n${`${own}\n\n${thirdParty}`.split('\n').map((line) => line ? ` * ${line}` : ' *').join('\n')}\n */`;
 mkdirSync(join(root, 'dist'), { recursive: true });
 
-for (const [filename, minify] of [['plugin.js', false], ['plugin.min.js', true]]) {
+for (const [filename, minify] of [['view.js', false], ['view.min.js', true]]) {
   await build({
-    entryPoints: [join(root, 'plugin.js')],
+    entryPoints: [join(root, 'view.js')],
     outfile: join(root, 'dist', filename),
     bundle: true,
     format: 'iife',
